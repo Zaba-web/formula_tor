@@ -25,8 +25,8 @@ describe("Parser class: ", ()=>{
 
         const node = parser.analyze(lexemeBuffer).get(0) as BinaryOperatorNode;
 
-        expect(node.leftHandSideOperand.value).toBe('2');
-        expect(node.rightHandSideOperand.value).toBe('4');
+        expect(node.leftHandSideOperand.get(0).value).toBe('2');
+        expect(node.rightHandSideOperand.get(0).value).toBe('4');
     });
 
     it("should work with combined expression", ()=>{
