@@ -15,20 +15,14 @@ export class NodeList {
     }
 
     /**
-     * Add array of nodes
-     * @param node node to add
-     */
-    public addMultipleNodes(node: Node[]): void {
-        this.nodes.push(...node);
-    }
-
-    /**
      * Get arbitrary node from node list
      * @param index index of node
      * @returns node
      */
     public get(index: number): Node {
-        return this.nodes[index];
+        if(index >= 0 && index < this.nodes.length) {
+            return this.nodes[index];
+        }
     }
 
     /**
