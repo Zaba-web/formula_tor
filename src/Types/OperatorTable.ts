@@ -51,7 +51,7 @@ const OperatorTable: IOperatorTable = {
         arity: 0
     },
     ')': {
-        type: LexemeType.RIGTH_BRACKET,
+        type: LexemeType.RIGHT_BRACKET,
         arity: 0
     },
     ',': {
