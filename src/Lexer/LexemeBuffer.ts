@@ -1,6 +1,4 @@
-import { LexemeType } from "../Types/LexemeTypes";
 import { Lexeme } from "./Lexeme";
-
 
 export class LexemeBuffer {
     private lexemeList:  Lexeme[] = [];
