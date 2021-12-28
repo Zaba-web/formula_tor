@@ -24,6 +24,11 @@ export class Lexer {
         while (this.analysisPosition < expression.length) {
             const currentChar = expression[this.analysisPosition];
 
+            if(this.isItWhitespace(currentChar)) {
+                this.movePositionForward();
+                continue;
+            }
+
             if (this.charIsOperator(currentChar)) {
                 lexemeBuffer.add(this.createOperatorLexeme(currentChar));
                 this.movePositionForward();
@@ -103,7 +108,7 @@ export class Lexer {
             lexemePart = expression[this.analysisPosition];
             this.movePositionForward();
 
-            if (lexemePart == ' ' || lexemePart == '    ' || lexemePart == '\n') {
+            if (this.isItWhitespace(lexemePart)) {
                 continue;
             }
 
@@ -126,6 +131,15 @@ export class Lexer {
         this.movePositionBack();
         
         return lexeme;
+    }
+
+    /**
+     * Check if given character is whitespace or tab or \n
+     * @param char given char
+     * @returns boolean value
+     */
+    private isItWhitespace(char: string): boolean {
+        return char == ' ' || char == '' || char == '    ' || char == '\n';
     }
 
     /**
