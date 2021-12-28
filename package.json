@@ -6,16 +6,32 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "prod": "webpack --mode production",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "author": "Andriy Sotnyk <lodochnikkot@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^27.0.3",
     "jest": "^27.4.5",
     "ts-jest": "^27.1.2",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
