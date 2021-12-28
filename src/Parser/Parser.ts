@@ -4,7 +4,7 @@ import { UnaryOperatorNode } from "../IntermediateRepresentation/UnaryOperatorNo
 import { BinaryOperatorNode } from "../IntermediateRepresentation/BinaryOperatorNode";
 import { LexemeBuffer } from "../Lexer/LexemeBuffer";
 
-import { RegularStringHandeler } from "./OperandDetector";
+import { OperandDetector } from "./OperandDetector";
 
 import { NodeList } from "../IntermediateRepresentation/NodeList";
 import { LexemeType } from "../Types/LexemeTypes";
@@ -16,10 +16,10 @@ import { Lexeme } from "../Lexer/Lexeme";
 export class Parser {
     private lexemeList: LexemeBuffer;
     private nodeList: NodeList;
-    private regularStringHandler: RegularStringHandeler;
+    private operandDerector: OperandDetector;
 
     constructor() {
-        this.regularStringHandler = new RegularStringHandeler();
+        this.operandDerector = new OperandDetector();
     }
 
     /**
@@ -76,7 +76,7 @@ export class Parser {
                 return ;
 
             case LexemeType.REGULAR_STRING:
-                if(this.regularStringHandler.isNotOperand(lexemeList, currentLexemeIndex)) {
+                if(this.operandDerector.isNotOperand(lexemeList, currentLexemeIndex)) {
                     return this.createStringNode(lexeme);
                 }
                 break;
@@ -87,6 +87,18 @@ export class Parser {
                 return this.createStringNode(lexeme);
             case LexemeType.DIVISION_OPERATOR:
                 return this.handleBinaryOperator(lexeme, lexemeList, currentLexemeIndex);
+            case LexemeType.POWER_OPERATOR:
+                return this.handleUnaryOperator(lexeme, lexemeList, currentLexemeIndex);
+            case LexemeType.LEFT_BRACKET:
+                if(this.operandDerector.isNotOperand(lexemeList, currentLexemeIndex)) {
+                    return this.createStringNode(lexeme);
+                }
+                break;
+            case LexemeType.RIGTH_BRACKET:
+                if(this.operandDerector.isNotOperand(lexemeList, currentLexemeIndex)) {
+                    return this.createStringNode(lexeme);
+                }
+                break;
         }
     }
 
@@ -111,6 +123,16 @@ export class Parser {
         binaryOperatorNode.rightHandSideOperand = rightHandSideOperand.get(0);
 
         return binaryOperatorNode;
+    }
+
+    private handleUnaryOperator(currentLexeme: Lexeme, lexemeList: LexemeBuffer, index: number): Node {
+        const operandLexeme = lexemeList.get(index + 1);
+        const operandNode = this.parse(this.getSubexpression(operandLexeme, lexemeList, index + 1));
+
+        const unaryOperator = new UnaryOperatorNode(currentLexeme.value, currentLexeme.type);
+        unaryOperator.operand = operandNode.get(0);
+
+        return unaryOperator;
     }
 
     private getSubexpression(currentLexeme: Lexeme, lexemeList: LexemeBuffer, index: number): LexemeBuffer {
