@@ -31,7 +31,10 @@ export class Parser {
         this.nodeList = new NodeList();
 
         this.lexemeList = lexemeList;
-        this.nodeList = this.parse(this.lexemeList);
+
+        if(this.lexemeList.length() > 0) {
+            this.nodeList = this.parse(this.lexemeList);
+        }
 
         return this.nodeList;
     }
