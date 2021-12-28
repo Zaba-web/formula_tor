@@ -5,7 +5,7 @@ import { LexemeType } from "../Types/LexemeTypes";
 /**
  * This class detects if given lexem is an operand of operator or not.
  */
-export class RegularStringHandeler {
+export class OperandDetector {
 
     private lexemeList: LexemeBuffer;
     private lexemeIndex: number;
@@ -41,7 +41,7 @@ export class RegularStringHandeler {
      */
     public isNotRHSOperand(): boolean {
         if(this.isItNotFirstLexeme()) { 
-            return (this.prevNotBinaryOperator() || this.prevIsFunction());
+            return ((this.prevNotBinaryOperator() && this.prevNotUnaryOperator()) || this.prevIsFunction());
         } else {
             return true;
         }
@@ -65,6 +65,10 @@ export class RegularStringHandeler {
 
     private nextNotBinaryOperator(): boolean {
         return this.getNextLexeme().arity != 2;
+    }
+
+    private prevNotUnaryOperator(): boolean {
+        return this.getPrevLexeme().arity != 1;
     }
 
     private prevNotBinaryOperator(): boolean {
