@@ -21,11 +21,19 @@ export class LexemeBuffer {
     };
 
     /**
-     * Add new lexeme to the list of the lexems
+     * Add new lexeme to the end of the list of lexems
      * @param lexeme lexeme to add
      */
     public add(lexeme: Lexeme): void {
         this.lexemeList.push(lexeme);
+    }
+
+    /**
+     * Add new lexeme to the beginning of the list of lexems
+     * @param lexeme lexeme to add
+     */
+    public unshift(lexeme: Lexeme): void {
+        this.lexemeList.unshift(lexeme);
     }
 
     /**
@@ -52,6 +60,11 @@ export class LexemeBuffer {
      */
     public length(): number {
         return this.lexemeList.length;
+    }
+
+    public setSubexpression(start: number, end: number) {
+        this.subExpressionStart = start;
+        this.subExpressionEnd = end;
     }
 
     public set subExpressionStart(index: number) {
