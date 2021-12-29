@@ -23,27 +23,27 @@ interface IOperatorTable {
 
 const OperatorTable: IOperatorTable = {
     '+': {
-        type: LexemeType.PLUS_OPERATOR,
+        type: LexemeType.REGULAR_STRING,
         arity: 0
     },
     '-': {
-        type: LexemeType.MINUS_OPERATOR,
+        type: LexemeType.REGULAR_STRING,
         arity: 0
     },
     '*': {
-        type: LexemeType.MUL_OPERATOR,
+        type: LexemeType.REGULAR_STRING,
         arity: 0
     },
     '=': {
-        type: LexemeType.EQUAL_OPERATOR,
+        type: LexemeType.REGULAR_STRING,
         arity: 0
     },
     '/': {
-        type: LexemeType.DIVISION_OPERATOR,
+        type: LexemeType.BINARY_OPERATOR,
         arity: 2
     },
     '^': {
-        type: LexemeType.POWER_OPERATOR,
+        type: LexemeType.UNARY_OPERATOR,
         arity: 1
     },
     '(': {

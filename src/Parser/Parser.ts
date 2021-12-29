@@ -89,14 +89,9 @@ export class Parser {
                     return this.createStringNode(lexeme);
                 }
                 break;
-            case LexemeType.PLUS_OPERATOR:
-            case LexemeType.MINUS_OPERATOR:
-            case LexemeType.MUL_OPERATOR:
-            case LexemeType.EQUAL_OPERATOR:
-                return this.createStringNode(lexeme);
-            case LexemeType.DIVISION_OPERATOR:
+            case LexemeType.BINARY_OPERATOR:
                 return this.handleBinaryOperator(lexeme, lexemeList, currentLexemeIndex);
-            case LexemeType.POWER_OPERATOR:
+            case LexemeType.UNARY_OPERATOR:
                 return this.handleUnaryOperator(lexeme, lexemeList, currentLexemeIndex);
             case LexemeType.LEFT_BRACKET:
             case LexemeType.RIGHT_BRACKET:
