@@ -1,6 +1,9 @@
 import { LexemeBuffer } from "../Lexer/LexemeBuffer";
 import { LexemeType } from "../Types/LexemeTypes";
 
+/**
+ * A class that finds beginning and ending of the subexpression in brackets
+ */
 export class BracketsTracer {
     /**
      * Traces end of subexpression in brackets
@@ -27,7 +30,7 @@ export class BracketsTracer {
      * @returns position of end of the expression or false if it is incorrect
      */
     private traceForward(lexemeList: LexemeBuffer, bracketsCounter: number, currentPosition: number): number | boolean {
-        while(bracketsCounter != 0 && currentPosition <= lexemeList.length()) {
+        while(bracketsCounter != 0 && currentPosition < lexemeList.length() - 1) {
             currentPosition ++;
 
             lexemeList.get(currentPosition).type == LexemeType.LEFT_BRACKET ? bracketsCounter ++ : null;
@@ -45,7 +48,7 @@ export class BracketsTracer {
      * @returns position of end of the expression or false if it is incorrect
      */
     private traceBackward(lexemeList: LexemeBuffer, bracketsCounter: number, currentPosition: number): number | boolean {
-        while(bracketsCounter != 0 && currentPosition >= 0) {
+        while(bracketsCounter != 0 && currentPosition > 0) {
             currentPosition --;
 
             lexemeList.get(currentPosition).type == LexemeType.RIGHT_BRACKET ? bracketsCounter ++ : null;
