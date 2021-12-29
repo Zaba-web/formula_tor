@@ -73,11 +73,14 @@ export class SubexpressionHandler {
      */
     private copyExpression(currentLexeme: Lexeme, endOfExpression: number, subexpression: LexemeBuffer, lexemeList: LexemeBuffer, index: number): void{
         if(currentLexeme.type == LexemeType.LEFT_BRACKET)
-            for(let i = index + 1; i < endOfExpression; i ++) 
+            for(let i = index + 1; i < endOfExpression; i ++)  {
                 subexpression.add(lexemeList.get(i));
+            }
 
-        if(currentLexeme.type == LexemeType.RIGHT_BRACKET)
-            for(let i = endOfExpression as number - 1; i > index; i ++)
+        if(currentLexeme.type == LexemeType.RIGHT_BRACKET) {
+            for(let i = index as number - 1; i > endOfExpression; i --) {
                 subexpression.add(lexemeList.get(i));
+            }
+        }
     }
 }
