@@ -1,8 +1,10 @@
 import { BinaryOperatorNode } from "../src/IntermediateRepresentation/BinaryOperatorNode";
+import { FunctionNode } from "../src/IntermediateRepresentation/FunctionNode";
 import { UnaryOperatorNode } from "../src/IntermediateRepresentation/UnaryOperatorNode";
 import { LexemeBuffer } from "../src/Lexer/LexemeBuffer";
 import { Lexer } from "../src/Lexer/Lexer";
 import { Parser } from "../src/Parser/Parser";
+import { LexemeType } from "../src/Types/LexemeTypes";
 
 
 describe("Parser class: ", ()=>{
@@ -68,5 +70,49 @@ describe("Parser class: ", ()=>{
     it("should trow error", ()=>{
         const lexemeBuffer = lexer.analyze("2/(19-5))");
         expect(()=>{parser.analyze(lexemeBuffer)}).toThrow(Error);
+    });
+
+    it("should work with functions", ()=>{
+        const lexemeBuffer = lexer.analyze("Root(4,2)");
+        const ir = parser.analyze(lexemeBuffer);
+
+        const fnNode = ir.get(0) as FunctionNode;
+
+        expect(fnNode.type).toEqual(LexemeType.FUNCTION);
+        expect(fnNode.arguments[0].get(0).value).toBe('4');
+        expect(fnNode.arguments[1].get(0).value).toBe('2');
+    });
+
+    it("should be able to use complex expressions as function arguments", ()=>{
+        const lexemeBuffer = lexer.analyze("Root((1/2),2)");
+        const ir = parser.analyze(lexemeBuffer);
+
+        const fnNode = ir.get(0) as FunctionNode;
+        expect(fnNode.arguments[0].get(0).value).toEqual('/');
+    });
+
+    it("should be able to use functions as operands", ()=>{
+        const lexemeBuffer = lexer.analyze("Root(2,3)/Root(3,5)");
+        const ir = parser.analyze(lexemeBuffer);
+
+        const operatorNode = ir.get(0) as BinaryOperatorNode;
+        const lhsOperand = operatorNode.leftHandSideOperand.get(0) as FunctionNode;
+        const rhsOperand = operatorNode.rightHandSideOperand.get(0) as FunctionNode;
+
+        expect(lhsOperand.type).toEqual(LexemeType.FUNCTION);
+        expect(rhsOperand.type).toEqual(LexemeType.FUNCTION);
+
+        expect(lhsOperand.arguments[0].get(0).value).toBe('2');
+        expect(lhsOperand.arguments[1].get(0).value).toBe('3');
+
+        expect(rhsOperand.arguments[0].get(0).value).toBe('3');
+        expect(rhsOperand.arguments[1].get(0).value).toBe('5');
+    });
+
+    it("should throw error argument missing error", ()=>{
+        const lexemeBuffer = lexer.analyze("Root");
+        expect(()=>{
+            parser.analyze(lexemeBuffer);
+        }).toThrow();
     });
 });
