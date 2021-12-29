@@ -1,7 +1,20 @@
 import { Lexeme } from "./Lexeme";
 
+/**
+ * This class is using to represent sequences of lexems. LexemeBuffer lays between 
+ * raw string and intermediate representation.
+ */
 export class LexemeBuffer {
     private lexemeList:  Lexeme[] = [];
+
+    /**
+     * Since we parse subexperssions, that are operands and function arguments separately,
+     * creating new lexeme buffers from them, we need to skip this subexpressions in the main 
+     * parsing process.
+     * 
+     * Parser checks if current parsed lexeme index is in the range that represents by subExpressionStatus
+     * and if it is, the parser skips this lexemes until it reach the end of the subexpression.
+     */
     private subExpressionStatus = {
         start: -1,
         end: -1
