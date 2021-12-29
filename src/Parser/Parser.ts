@@ -10,6 +10,7 @@ import { NodeList } from "../IntermediateRepresentation/NodeList";
 import { LexemeType } from "../Types/LexemeTypes";
 import { Lexeme } from "../Lexer/Lexeme";
 import { BracketsTracer } from "./BracketsTracer";
+import { SubexpressionHandler } from "./SubexpressionHandler";
 
 /**
  * Parser class preforms syntax analysis. 
@@ -17,12 +18,14 @@ import { BracketsTracer } from "./BracketsTracer";
 export class Parser {
     private lexemeList: LexemeBuffer;
     private nodeList: NodeList;
-    private operandDerector: OperandDetector;
+    private operandDetector: OperandDetector;
     private bracketTracer: BracketsTracer;
+    private subexpressionHandler: SubexpressionHandler;
 
     constructor() {
-        this.operandDerector = new OperandDetector();
+        this.operandDetector = new OperandDetector();
         this.bracketTracer = new BracketsTracer();
+        this.subexpressionHandler = new SubexpressionHandler(this.operandDetector, this.bracketTracer);
     }
 
     /**
@@ -83,7 +86,7 @@ export class Parser {
                 return ;
 
             case LexemeType.REGULAR_STRING:
-                if(this.operandDerector.isNotOperand(lexemeList, currentLexemeIndex)) {
+                if(this.operandDetector.isNotOperand(lexemeList, currentLexemeIndex)) {
                     return this.createStringNode(lexeme);
                 }
                 break;
@@ -126,10 +129,10 @@ export class Parser {
      */
     private handleBinaryOperator(currentLexeme: Lexeme, lexemeList: LexemeBuffer, index: number): Node {
         const leftHandSideOperandLexeme = lexemeList.get(index - 1);
-        const leftHandSideOperand = this.parse(this.getSubexpression(leftHandSideOperandLexeme, lexemeList, index - 1));
+        const leftHandSideOperand = this.parse(this.subexpressionHandler.getSubexpression(leftHandSideOperandLexeme, lexemeList, index - 1));
 
         const rightHandSideOperandLexeme = lexemeList.get(index + 1);
-        const rightHandSideOperand = this.parse(this.getSubexpression(rightHandSideOperandLexeme, lexemeList, index + 1));
+        const rightHandSideOperand = this.parse(this.subexpressionHandler.getSubexpression(rightHandSideOperandLexeme, lexemeList, index + 1));
 
         const binaryOperatorNode = new BinaryOperatorNode(currentLexeme.value, currentLexeme.type, leftHandSideOperand, rightHandSideOperand);
 
@@ -145,7 +148,7 @@ export class Parser {
      */
     private handleUnaryOperator(currentLexeme: Lexeme, lexemeList: LexemeBuffer, index: number): Node {
         const operandLexeme = lexemeList.get(index + 1);
-        const operand = this.parse(this.getSubexpression(operandLexeme, lexemeList, index + 1));
+        const operand = this.parse(this.subexpressionHandler.getSubexpression(operandLexeme, lexemeList, index + 1));
 
         const unaryOperator = new UnaryOperatorNode(currentLexeme.value, currentLexeme.type, operand);
 
@@ -162,55 +165,11 @@ export class Parser {
     private handleBracketExpression(lexemeList: LexemeBuffer, currentLexemeIndex: number, lexemeType: LexemeType): Node {
         const endOfExpression = this.bracketTracer.traceBracketsExpression(lexemeList, currentLexemeIndex, lexemeType);
 
-        if(endOfExpression === false) {
-            throw new Error(`Brackets mismatch.`);
-        }
-
-        if(
-            this.operandDerector.isNotOperand(lexemeList, currentLexemeIndex)
-            &&
-            this.operandDerector.isNotOperand(lexemeList, endOfExpression as number)
-        ) {
-            return this.createStringNode(lexemeList.get(currentLexemeIndex));
-        } else {
+        if(this.subexpressionHandler.isSubexpressionOperand(lexemeList, currentLexemeIndex, endOfExpression)) {
             lexemeList.subExpressionStart = currentLexemeIndex;
             lexemeList.subExpressionEnd = endOfExpression as number;
-        }
-    }
-    
-    /**
-     * Handle operands and fucntion arguments
-     * Works with single lexemes and with subexpressions
-     * @param currentLexeme 
-     * @param lexemeList 
-     * @param index index of current lexeme
-     * @returns new lexeme buffer
-     */
-    private getSubexpression(currentLexeme: Lexeme, lexemeList: LexemeBuffer, index: number): LexemeBuffer {
-        const subexpression = new LexemeBuffer();
-        const eof = new Lexeme(LexemeType.EOF, ' ', 0);
-
-        if(currentLexeme.type == LexemeType.LEFT_BRACKET || currentLexeme.type == LexemeType.RIGHT_BRACKET) {
-            const endOfExpression = this.bracketTracer.traceBracketsExpression(lexemeList, index, currentLexeme.type);
-
-            if(endOfExpression !== false) {
-                if(currentLexeme.type == LexemeType.LEFT_BRACKET)
-                    for(let i = index + 1; i < endOfExpression; i ++) 
-                        subexpression.add(lexemeList.get(i));
-
-                if(currentLexeme.type == LexemeType.RIGHT_BRACKET)
-                    for(let i = endOfExpression as number - 1; i > index; i ++)
-                        subexpression.add(lexemeList.get(i));
-            } else {
-                throw new Error(`Brackets mismatch.`);
-            }
-                
         } else {
-            subexpression.add(currentLexeme);
+            return this.createStringNode(lexemeList.get(currentLexemeIndex));
         }
-
-        subexpression.add(eof);
-
-        return subexpression;
     }
 }
