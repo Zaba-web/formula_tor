@@ -1,4 +1,5 @@
 import { BinaryOperatorNode } from "../src/IntermediateRepresentation/BinaryOperatorNode";
+import { UnaryOperatorNode } from "../src/IntermediateRepresentation/UnaryOperatorNode";
 import { LexemeBuffer } from "../src/Lexer/LexemeBuffer";
 import { Lexer } from "../src/Lexer/Lexer";
 import { Parser } from "../src/Parser/Parser";
@@ -19,6 +20,14 @@ describe("Parser class: ", ()=>{
         expect(parser.analyze(lexemeBuffer).toArray().length).toBe(3);
     });
 
+    it("should work with unary operator", ()=>{
+        const lexemeBuffer = lexer.analyze("2^5");
+        expect(parser.analyze(lexemeBuffer).toArray().length).toBe(2);
+
+        const operator = parser.analyze(lexemeBuffer).get(1) as UnaryOperatorNode;
+        expect(operator.operand.get(0).value).toBe('5');
+    });
+
     it("should work with binary operators", ()=>{
         const lexemeBuffer = lexer.analyze("2/4");
         expect(parser.analyze(lexemeBuffer).toArray().length).toBe(1);
@@ -32,5 +41,32 @@ describe("Parser class: ", ()=>{
     it("should work with combined expression", ()=>{
         const lexemeBuffer = lexer.analyze("2/4+x");
         expect(parser.analyze(lexemeBuffer).toArray().length).toBe(3);
+    });
+
+    it("should handle brackets as regular strings if it not operands", ()=>{
+        const lexemeBuffer = lexer.analyze("(10 - 3)");
+        expect(parser.analyze(lexemeBuffer).toArray().length).toBe(5);
+    });
+
+    it("should work with subexpressions", ()=>{
+        const lexemeBuffer = lexer.analyze("(10-5)/(19-5)");
+        const IntermediateRepresentation = parser.analyze(lexemeBuffer);
+
+        expect(IntermediateRepresentation.toArray().length).toBe(1);
+
+        const operator = IntermediateRepresentation.get(0) as BinaryOperatorNode;
+
+        expect(operator.value).toBe('/');
+        expect(operator.rightHandSideOperand.toArray().length).toBe(3);
+    });
+
+    it("should trow error", ()=>{
+        const lexemeBuffer = lexer.analyze("2/(((19-5)");
+        expect(()=>{parser.analyze(lexemeBuffer)}).toThrow(Error);
+    });
+
+    it("should trow error", ()=>{
+        const lexemeBuffer = lexer.analyze("2/(19-5))");
+        expect(()=>{parser.analyze(lexemeBuffer)}).toThrow(Error);
     });
 });
