@@ -183,7 +183,7 @@ export class HTMLVisualizer implements IVisualizer {
                 case 'DELTA':
                     result += NodesMarkupGenerator.regularStringNodeMarkup('Δ');
                     break;
-                case 'DELTA_SM':
+                case 'DELTASM':
                     result += NodesMarkupGenerator.regularStringNodeMarkup('δ');
                     break;
                 case 'PI':
