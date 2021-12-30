@@ -62,6 +62,11 @@ export class LexemeBuffer {
         return this.lexemeList.length;
     }
 
+    /**
+     * Set beggining and ending of the subexpression
+     * @param start index of the first lexeme of the subexpression
+     * @param end index of the last lexeme of the subexpression
+     */
     public setSubexpression(start: number, end: number) {
         this.subExpressionStart = start;
         this.subExpressionEnd = end;
