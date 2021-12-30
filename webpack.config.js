@@ -5,7 +5,11 @@ module.exports = {
     entry: "./src/index.ts",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
+        library: "Formulator",
+        libraryTarget: 'umd',
+        libraryExport: 'default',
+        umdNamedDefine: true,
+        filename: "formulator.js",
         publicPath: "/dist/"
     },
     module: {
