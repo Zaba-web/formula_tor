@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Formulator</title>
+        <link rel="stylesheet" href="./assets/styles/main.css">
+        <script src="./assets/scripts/formulator.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>
+                    Formulator <sup>Beta 1.0</sup> Playground
+                </h1>
+            </header>
+            <main>
+                <div class="workspace-container">
+                    <div class="workspace-item">
+                        <textarea noresize class="formula-input">
+DefInt(
+  (f(x)dx),
+  a,
+  b
+) = 1/2, 
+Sum(
+  (h_i(y_(i - 1)+y_i)),
+  n,
+  (i = 1)
+)
+                        </textarea>
+                    </div>
+                    <div class="workspace-item formula-container">
+                        
+                    </div>
+                </div>
+            </main>
+            <button class='formula-submit'>Visualize</button>
+        </div>
+
+        <script src="./assets/scripts/main.js"></script>
+    </body>
+</html>
