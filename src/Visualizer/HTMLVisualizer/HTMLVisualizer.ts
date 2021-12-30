@@ -2,6 +2,7 @@ import { BinaryOperatorNode } from "../../IntermediateRepresentation/BinaryOpera
 import { FunctionNode } from "../../IntermediateRepresentation/FunctionNode";
 import { NodeList } from "../../IntermediateRepresentation/NodeList";
 import { UnaryOperatorNode } from "../../IntermediateRepresentation/UnaryOperatorNode";
+import { hasSomeParentTheClass } from "../../utils/utils";
 import { IVisualizer } from "../IVisualizer";
 import { NodesMarkupGenerator } from "./NodesMarkupGenerator";
 
@@ -35,6 +36,7 @@ export class HTMLVisualizer implements IVisualizer {
 
         this.adjustBracketsHeight();
         this.adjustTopIndexes();
+        this.adjustDivisionExpressionPosition();
     }
 
     private getMarkup(nodeList: NodeList): string {
@@ -47,17 +49,24 @@ export class HTMLVisualizer implements IVisualizer {
                     const powerOperator = node as UnaryOperatorNode;
                     result += NodesMarkupGenerator.topIndexNodeMarkup(this.getMarkup(powerOperator.operand));
                     break;
+                case '_': 
+                    const bottomIndex = node as UnaryOperatorNode;
+                    result += NodesMarkupGenerator.bottomIndexNodeMarkup(this.getMarkup(bottomIndex.operand));
+                    break;
                 case '-':
                     result += NodesMarkupGenerator.regularStringNodeMarkup('−');
                     break;
                 case '*':
                     result += NodesMarkupGenerator.regularStringNodeMarkup("⋅");
                     break;
+                case ')':
+                    result += NodesMarkupGenerator.rightBracketMarkup();
+                    break;
                 case '(':
                     result += NodesMarkupGenerator.leftBracketMarkup();
                     break;
-                case ')':
-                    result += NodesMarkupGenerator.rightBracketMarkup();
+                case '|':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('│');
                     break;
                 case '/':
                     const divisionOperator = node as BinaryOperatorNode;
@@ -110,15 +119,74 @@ export class HTMLVisualizer implements IVisualizer {
                         this.getMarkup(indefInt.argumentsList[0])
                     );
                     break;
+                case 'DefInt':
+                    const defInt = node as FunctionNode;
+                    result += NodesMarkupGenerator.defIntMarkup(
+                        this.getMarkup(defInt.argumentsList[0]),
+                        this.getMarkup(defInt.argumentsList[1]),
+                        this.getMarkup(defInt.argumentsList[2])
+                    );
+                    break;
+                case 'Lim':
+                    const limit = node as FunctionNode;
+                    result += NodesMarkupGenerator.limitMarkup(
+                        this.getMarkup(limit.argumentsList[0]),
+                        this.getMarkup(limit.argumentsList[1]),
+                        this.getMarkup(limit.argumentsList[2])
+                    );
+                    break;
+                case 'Indexes':
+                    const indexes = node as FunctionNode;
+                    result += NodesMarkupGenerator.twoIndexMarkup(
+                        this.getMarkup(indexes.argumentsList[0]),
+                        this.getMarkup(indexes.argumentsList[1]),
+                    );
+                    break;
+                case 'Sum':
+                    const sumFunction = node as FunctionNode;
+                    result += NodesMarkupGenerator.sumMarkup(
+                        this.getMarkup(sumFunction.argumentsList[0]),
+                        this.getMarkup(sumFunction.argumentsList[1]),
+                        this.getMarkup(sumFunction.argumentsList[2])
+                    );
+                    break;
+                case 'ALPHA':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('α');
+                    break;
+                case 'BETA':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('β');
+                    break;
+                case 'GAMMA':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('γ');
+                    break;
+                case 'DELTA':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('Δ');
+                    break;
+                case 'DELTA_SM':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('δ');
+                    break;
+                case 'PI':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('π');
+                    break;
+                case 'PHI':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('φ');
+                    break;
+                case 'f':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('𝑓');
+                    break;
+                    
                 default:
                     result += NodesMarkupGenerator.regularStringNodeMarkup(node.value);
-                    break
+                    break;
             }
         });
 
         return result;
     }
 
+    /**
+     * Set proper height offset for top indexes
+     */
     private adjustTopIndexes() {
         const topIndexes = this.container.children[0].children[0].querySelectorAll('.__formulator_topIndex');
 
@@ -131,6 +199,9 @@ export class HTMLVisualizer implements IVisualizer {
         });
     }
 
+    /**
+     * Set proper height for left brackets according to the following element
+     */
     private adjustBracketsHeight() {
         const leftBrackets = this.container.children[0].children[0].querySelectorAll('.__formulator_leftBracket');
         
@@ -141,6 +212,9 @@ export class HTMLVisualizer implements IVisualizer {
         this.justifyBracketsSizes();
     }
 
+    /**
+     * Set proper height for right brackets according to the left bracket respectively
+     */
     private justifyBracketsSizes() {
         const allBrackets = this.container.children[0].children[0].querySelectorAll('.__formulator_bracket');
 
@@ -160,5 +234,21 @@ export class HTMLVisualizer implements IVisualizer {
                 }
             }
         }
+    }
+
+    private adjustDivisionExpressionPosition() {
+        const allFractions = this.container.children[0].children[0].querySelectorAll('.__formulator_divisionContainer');
+
+        allFractions.forEach(element => {
+            const fractionsParts = element.children;
+
+            if(!hasSomeParentTheClass(element as HTMLElement, "__formulator_divisionContainer")) {
+                if(fractionsParts[0].clientHeight < fractionsParts[2].clientHeight) {
+                    (fractionsParts[0] as HTMLElement).style.paddingTop = `${fractionsParts[2].clientHeight - fractionsParts[0].clientHeight}px`;
+                } else if (fractionsParts[0].clientHeight > fractionsParts[2].clientHeight) {
+                    (fractionsParts[2] as HTMLElement).style.paddingBottom = `${fractionsParts[0].clientHeight - fractionsParts[2].clientHeight}px`;
+                }
+            }
+        });
     }
 }

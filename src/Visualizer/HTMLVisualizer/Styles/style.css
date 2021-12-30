@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math&display=swap');
 
 .__formulator_formula_container {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'Noto Sans Math', sans-serif;
     font-size: 21px;
 }
 .__formulator_formula_container_wrapper {
@@ -10,7 +10,8 @@
 .__formulator_formula_container_wrapper, .__formulator_formula_container, .__formulator_formulaPart,
 .__formulator_topIndex, .__formulator_divisionContainer, .__formulator_bracket, .__formulator_rootContainer, 
 .__formulator_rootExpressionContainer, .__formulator_rootExpression, .__formulator_rootWrapper, .__formulator_bottomIndex,
-.__formulator_systemItemsContainer, .__formulator_indefIntegralCotnainer {
+.__formulator_systemItemsContainer, .__formulator_indefIntegralCotnainer, .__formulator_limtitSymbolContainer,
+.__formulator_limtitSymbolParameters, .__formulator_limtitContainer, .__formulator_sumContainer {
     display: flex;
 }
 
@@ -64,10 +65,14 @@
     justify-content: center;
 }
 
+.__formulator_divisionContainer .__formulator_divisionContainer {
+    font-size: 16px;
+}
+
 .__formulator_topIndex {
     position: relative;
     align-items: flex-start;
-    transform: scale(.75);
+    font-size: 14px;
 }
 
 .__formulator_topIndex .__formulator_divisionContainer {
@@ -194,6 +199,31 @@
     align-items: center;
 }
 
-.__formulator_indefIntegralSymbol svg {
+.__formulator_integralSymbol svg {
     height: 65px;
+}
+
+.__formulator_defIntegralSymbolContainer .__formulator_formulaPart {
+    font-size: 14px;
+}
+
+.__formulator_limtitSymbolContainer {
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.__formulator_limtitSymbolParameters {
+    font-size: 14px;
+}
+
+.__formulator_limtitContainer {
+    align-items: flex-start;
+}
+
+.__formulator_sumSymbolContainer {
+    margin-right: 10px;
+}
+
+.__formulator_sumSymbolContainer > .__formulator_formulaPart {
+    font-size: 14px;
 }
