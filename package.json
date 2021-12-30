@@ -1,8 +1,11 @@
 {
   "name": "formulator",
-  "version": "1.0.0",
+  "version": "0.9.9",
   "description": "Simple library that renders mathematical expressions as visualized formulas.",
-  "main": "index.ts",
+  "main": "dist/formulator.js",
+  "module": "dist/formulator.js",
+  "types": "dist/index.d.ts",
+  "prepublish":"npm run prod && npm run test",
   "scripts": {
     "dev": "webpack --mode development --watch",
     "prod": "webpack --mode production",
