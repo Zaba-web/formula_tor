@@ -18,7 +18,7 @@ export class FunctionNode extends Node {
         this._arguments = args;
     }
 
-    get arguments() {
+    get argumentsList() {
         return this._arguments;
     }
 }
