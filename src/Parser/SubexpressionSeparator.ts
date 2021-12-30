@@ -49,8 +49,6 @@ export class SubexpressionSeparator {
 
         this.subexpression.add(eof);
 
-        console.log(this.subexpression);
-
         return this.subexpression;
     }
     
