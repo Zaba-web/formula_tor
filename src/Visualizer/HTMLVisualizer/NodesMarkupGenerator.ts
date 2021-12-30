@@ -1,3 +1,6 @@
+/**
+ * This class generates markup for different kinds of nodes
+ */
 export class NodesMarkupGenerator {
     public static regularStringNodeMarkup(value: string): string {
         return `<div class='__formulator_formulaPart'>${value}</div>`;
@@ -71,8 +74,8 @@ export class NodesMarkupGenerator {
                 <div class='__formulator_systemSymbolContainer'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.194 172.313">
                         <g id="Group_33" data-name="Group 33" transform="translate(-4113.432 -6453.552)">
-                        <path id="Path_61" data-name="Path 61" d="M4113.615,6538.416c7.166-2.816,15.514-10.146,19.083-27.735,7.138-35.178-2.294-56.591,26.894-58.63" transform="translate(0 2)" fill="none" stroke="#000" stroke-width="1.2"/>
-                        <path id="Path_62" data-name="Path 62" d="M4113.615,6455c7.166,2.816,15.514,9.146,19.083,26.735,7.138,35.178-2.294,56.591,26.894,58.63" transform="translate(0 85)" fill="none" stroke="#000" stroke-width="1.2"/>
+                        <path id="Path_61" data-name="Path 61" d="M4113.615,6538.416c7.166-2.816,15.514-10.146,19.083-27.735,7.138-35.178-2.294-56.591,26.894-58.63" transform="translate(0 2)" fill="none" stroke="#000" stroke-width="2"/>
+                        <path id="Path_62" data-name="Path 62" d="M4113.615,6455c7.166,2.816,15.514,9.146,19.083,26.735,7.138,35.178-2.294,56.591,26.894,58.63" transform="translate(0 85)" fill="none" stroke="#000" stroke-width="2"/>
                         </g>
                     </svg>
                 </div>
@@ -121,6 +124,22 @@ export class NodesMarkupGenerator {
             </div>
         `;
     }
+
+    public static intLineMarkup(bottom: string, top: string): string {
+        return `
+            <div class='__formulator_indefIntegralCotnainer'>
+                <div class='__formulator_defIntegralSymbolContainer'>
+                    <div class = '__formulator_formulaPart'>${top}</div>
+                    <div class='__formulator_integralSymbol'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 22">
+                            <line id="Line_66" data-name="Line 66" y2="22" transform="translate(0.5)" fill="none" stroke="#000" stroke-width="0.5"/>
+                        </svg>                                         
+                    </div>
+                    <div class = '__formulator_formulaPart'>${bottom}</div>
+                </div>
+            </div>
+        `;
+    }
     
     public static limitMarkup(expression: string, variable: string, approaching: string): string {
         return `
@@ -159,18 +178,27 @@ export class NodesMarkupGenerator {
 
     public static sumMarkup(expression: string, stopPoint: string, start: string): string {
         return `
-        <div class='__formulator_sumContainer'>
-            <div class = '__formulator_sumSymbolContainer'>
-                <div class='__formulator_formulaPart'>${stopPoint}</div>
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="39" viewBox="0 0 17 22">
-                        <path id="Path_43" data-name="Path 43" d="M24,5H7V7.414L15.586,16,7,24.586V27H24V25H9.414l9-9-9-9H24Z" transform="translate(-7 -5)"/>
-                    </svg>
+            <div class='__formulator_sumContainer'>
+                <div class = '__formulator_sumSymbolContainer'>
+                    <div class='__formulator_formulaPart'>${stopPoint}</div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="39" viewBox="0 0 17 22">
+                            <path id="Path_43" data-name="Path 43" d="M24,5H7V7.414L15.586,16,7,24.586V27H24V25H9.414l9-9-9-9H24Z" transform="translate(-7 -5)"/>
+                        </svg>
+                    </div>
+                    <div class='__formulator_formulaPart'>${start}</div>
                 </div>
-                <div class='__formulator_formulaPart'>${start}</div>
+                <div class='__formulator_formulaPart'>${expression}</div>
             </div>
-            <div class='__formulator_formulaPart'>${expression}</div>
-        </div>
+        `;
+    }
+
+    public static vecMarkup(expression: string): string {
+        return `
+            <div class='__formulator_vecContainer'>
+                <div class='__formulator_vecArrow'></div>
+                <div class='__formulator_formulaPart'>${expression}</div>
+            </div>
         `;
     }
 }

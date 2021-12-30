@@ -217,7 +217,7 @@
 }
 
 .__formulator_limtitContainer {
-    align-items: flex-start;
+    align-items: center;
 }
 
 .__formulator_sumSymbolContainer {
@@ -226,4 +226,37 @@
 
 .__formulator_sumSymbolContainer > .__formulator_formulaPart {
     font-size: 14px;
+}
+
+.__formulator_vecContainer {
+    position: relative;
+    padding-top: 4px;
+}
+
+.__formulator_vecArrow {
+    width: 100%;
+    position: relative;
+    background-color: #000;
+    height: 1px;
+    top: 3px;
+}
+
+.__formulator_vecArrow::after, .__formulator_vecArrow::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 1px;
+    right: 0;
+    position: absolute;
+    top: 0;
+    background-color: #000;
+    transform-origin: right center; 
+}
+
+.__formulator_vecArrow::after {
+    transform: rotate(-30deg);
+}
+
+.__formulator_vecArrow::before {
+    transform: rotate(30deg);
 }
