@@ -18,7 +18,7 @@ export class HTMLVisualizer implements IVisualizer {
         this.setOutput(container);
     }
 
-    public setOutput (container: HTMLElement): void  {
+    setOutput (container: HTMLElement): void  {
         this.container = container as HTMLDivElement;
     }
 
@@ -127,6 +127,13 @@ export class HTMLVisualizer implements IVisualizer {
                         this.getMarkup(defInt.argumentsList[2])
                     );
                     break;
+                case 'IntLine':
+                    const intLine = node as FunctionNode;
+                    result += NodesMarkupGenerator.intLineMarkup(
+                        this.getMarkup(intLine.argumentsList[0]),
+                        this.getMarkup(intLine.argumentsList[1])
+                    );
+                    break;
                 case 'Lim':
                     const limit = node as FunctionNode;
                     result += NodesMarkupGenerator.limitMarkup(
@@ -148,6 +155,12 @@ export class HTMLVisualizer implements IVisualizer {
                         this.getMarkup(sumFunction.argumentsList[0]),
                         this.getMarkup(sumFunction.argumentsList[1]),
                         this.getMarkup(sumFunction.argumentsList[2])
+                    );
+                    break;
+                case 'Vec':
+                    const vecFunc = node as FunctionNode;
+                    result += NodesMarkupGenerator.vecMarkup(
+                        this.getMarkup(vecFunc.argumentsList[0])
                     );
                     break;
                 case 'ALPHA':
@@ -174,7 +187,9 @@ export class HTMLVisualizer implements IVisualizer {
                 case 'f':
                     result += NodesMarkupGenerator.regularStringNodeMarkup('𝑓');
                     break;
-                    
+                case 'DEG':
+                    result += NodesMarkupGenerator.topIndexNodeMarkup(NodesMarkupGenerator.regularStringNodeMarkup('°'));
+                    break;
                 default:
                     result += NodesMarkupGenerator.regularStringNodeMarkup(node.value);
                     break;
