@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap');
+
+.__formulator_formula_container {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 21px;
+}
+.__formulator_formula_container_wrapper {
+    overflow: auto;
+}
+.__formulator_formula_container_wrapper, .__formulator_formula_container, .__formulator_formulaPart,
+.__formulator_topIndex, .__formulator_divisionContainer, .__formulator_bracket, .__formulator_rootContainer, 
+.__formulator_rootExpressionContainer, .__formulator_rootExpression, .__formulator_rootWrapper, .__formulator_bottomIndex,
+.__formulator_systemItemsContainer, .__formulator_indefIntegralCotnainer {
+    display: flex;
+}
+
+.__formulator_rootWrapper {
+    align-items: flex-end;
+}
+
+.__formulator_rootContainer {
+    margin-top: 3px;
+    min-height: 40px;
+}
+
+.__formulator_bracket {
+    align-items: center;
+}
+
+.__formulator_bracket svg {
+    height: 100%;
+    width: auto;
+}
+
+.__formulator_formula_container, .__formulator_formulaPart, .__formulator_topIndex {
+    gap: 5px
+}
+
+.__formulator_formula_container_wrapper{
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    min-width: 300px;
+    justify-content: center;
+    align-items: center;
+}
+
+.__formulator_formula_container, .__formulator_formulaPart {
+    align-items: center;
+}
+
+.__formulator_formulaPart {
+    justify-content: center;
+}
+
+.__formulator_divisionDelimtier {
+    width: 100%;
+    height: 1px;
+    background: #000;
+}
+
+.__formulator_divisionContainer {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.__formulator_topIndex {
+    position: relative;
+    align-items: flex-start;
+    transform: scale(.75);
+}
+
+.__formulator_topIndex .__formulator_divisionContainer {
+    transform: scale(.85);
+    position: relative;
+}
+
+.__formulator_rootExpressionContainer {
+    flex-direction: column;
+}
+
+.__formulator_rootExpression {
+    margin: 0 8px;
+    height: 100%;
+}
+
+.__formulator_rootLine {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: relative;
+}
+
+.__formulator_rootSymbolContainer {
+    min-width: 25px;
+    height: auto;
+    position: relative;
+}
+
+.__formulator_rootSymbolBase {
+    width: 1px;
+    height: 100%;
+    background: #000;
+    position: absolute;
+    transform: skew(-10deg);
+    transform-origin: right top;
+    right: 0;
+}
+
+.__formulator_rootSymbolBase::before {
+    content: " ";
+    display: block;
+    width: 1px;
+    height: 20px;
+    background: #000;
+    transform: skew(30deg);
+    transform-origin: left bottom;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.__formulator_rootSymbolBase::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 10px;
+    background-color: #000;
+    bottom: 20px;
+    left: -21px;
+}
+
+.__formulator_rootPowerContainer {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.__formulator_rootPowerContainer::before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: #000;
+    bottom: 20px;
+}
+
+.__formulator_rootPower {
+    display: flex;
+    transform: scale(0.7);
+    padding-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.__formulator_rootPowerLine {
+    position: absolute;
+    right: -2px;
+    bottom: 20px;
+    width: 100%;
+    height: 1px;
+    background: #000;
+}
+
+.__formulator_bottomIndex{
+    font-size: 14px;
+    position: relative;
+    top: 10px;
+}
+
+.__formulator_systemSymbolContainer{
+    width: 20px;
+    height: 100%;
+}
+
+.__formulator_systemSymbolContainer svg {
+    height: 100%;
+}
+
+.__formulator_systemItemsContainer {
+    flex-direction: column;
+    padding-left: 15px;
+    gap: 4px;
+}
+
+.__formulator_systemContainer {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr;
+}
+
+.__formulator_indefIntegralCotnainer{
+    align-items: center;
+}
+
+.__formulator_indefIntegralSymbol svg {
+    height: 65px;
+}
