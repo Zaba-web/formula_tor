@@ -10,8 +10,11 @@ interface IOperatorTable {
     '-': OperatorDescription,
     '*': OperatorDescription,
     '=': OperatorDescription,
+    '<': OperatorDescription,
+    '>': OperatorDescription,
     '/': OperatorDescription,
     '^': OperatorDescription,
+    '_': OperatorDescription,
     '(': OperatorDescription,
     ')': OperatorDescription,
     ',': OperatorDescription,
@@ -38,12 +41,24 @@ const OperatorTable: IOperatorTable = {
     '=': {
         type: LexemeType.REGULAR_STRING,
         arity: 0
+    },    
+    '>': {
+        type: LexemeType.REGULAR_STRING,
+        arity: 0
+    },
+    '<': {
+        type: LexemeType.REGULAR_STRING,
+        arity: 0
     },
     '/': {
         type: LexemeType.BINARY_OPERATOR,
         arity: 2
     },
     '^': {
+        type: LexemeType.UNARY_OPERATOR,
+        arity: 1
+    },
+    '_': {
         type: LexemeType.UNARY_OPERATOR,
         arity: 1
     },
@@ -62,7 +77,7 @@ const OperatorTable: IOperatorTable = {
     ',': {
         type: LexemeType.COMA_SEPARATOR,
         arity: 0
-    }
+    },
 }
 
 export {OperatorTable, IOperatorTable}
