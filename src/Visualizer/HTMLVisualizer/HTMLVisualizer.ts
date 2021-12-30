@@ -18,10 +18,18 @@ export class HTMLVisualizer implements IVisualizer {
         this.setOutput(container);
     }
 
+    /**
+     * Set HTML Element as output container
+     * @param container DOM element
+     */
     setOutput (container: HTMLElement): void  {
         this.container = container as HTMLDivElement;
     }
 
+    /**
+     * Visualize expression
+     * @param intermediateRepresentation list of parsed nodes
+     */
     public visualize(intermediateRepresentation: NodeList): void {
         let resultMarkup: string = `
             <div class='__formulator_formula_container_wrapper'>
