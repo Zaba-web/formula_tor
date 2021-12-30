@@ -14,7 +14,8 @@ interface IOperatorTable {
     '^': OperatorDescription,
     '(': OperatorDescription,
     ')': OperatorDescription,
-    ',': OperatorDescription
+    ',': OperatorDescription,
+    '|': OperatorDescription
 }
 
 // According to the goal of library to visualize math expression, 
@@ -52,6 +53,10 @@ const OperatorTable: IOperatorTable = {
     },
     ')': {
         type: LexemeType.RIGHT_BRACKET,
+        arity: 0
+    },
+    '|': {
+        type: LexemeType.REGULAR_STRING,
         arity: 0
     },
     ',': {
