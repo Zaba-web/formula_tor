@@ -79,8 +79,8 @@ describe("Parser class: ", ()=>{
         const fnNode = ir.get(0) as FunctionNode;
 
         expect(fnNode.type).toEqual(LexemeType.FUNCTION);
-        expect(fnNode.arguments[0].get(0).value).toBe('4');
-        expect(fnNode.arguments[1].get(0).value).toBe('2');
+        expect(fnNode.argumentsList[0].get(0).value).toBe('4');
+        expect(fnNode.argumentsList[1].get(0).value).toBe('2');
     });
 
     it("should be able to use complex expressions as function arguments", ()=>{
@@ -88,7 +88,7 @@ describe("Parser class: ", ()=>{
         const ir = parser.analyze(lexemeBuffer);
 
         const fnNode = ir.get(0) as FunctionNode;
-        expect(fnNode.arguments[0].get(0).value).toEqual('/');
+        expect(fnNode.argumentsList[0].get(0).value).toEqual('/');
     });
 
     it("should be able to use functions as operands", ()=>{
@@ -102,11 +102,11 @@ describe("Parser class: ", ()=>{
         expect(lhsOperand.type).toEqual(LexemeType.FUNCTION);
         expect(rhsOperand.type).toEqual(LexemeType.FUNCTION);
 
-        expect(lhsOperand.arguments[0].get(0).value).toBe('2');
-        expect(lhsOperand.arguments[1].get(0).value).toBe('3');
+        expect(lhsOperand.argumentsList[0].get(0).value).toBe('2');
+        expect(lhsOperand.argumentsList[1].get(0).value).toBe('3');
 
-        expect(rhsOperand.arguments[0].get(0).value).toBe('3');
-        expect(rhsOperand.arguments[1].get(0).value).toBe('5');
+        expect(rhsOperand.argumentsList[0].get(0).value).toBe('3');
+        expect(rhsOperand.argumentsList[1].get(0).value).toBe('5');
     });
 
     it("should throw error argument missing error", ()=>{
