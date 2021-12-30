@@ -10,9 +10,11 @@ interface IFunctionTable {
     'System4': FunctionDescription,
     'IndefInt': FunctionDescription,
     'DefInt': FunctionDescription,
+    'IntLine': FunctionDescription,
     'Lim': FunctionDescription,
     'Indexes': FunctionDescription,
-    'Sum': FunctionDescription
+    'Sum': FunctionDescription,
+    'Vec': FunctionDescription
 }
 
 const FunctionTable: IFunctionTable = {
@@ -37,6 +39,9 @@ const FunctionTable: IFunctionTable = {
     'DefInt': {
         argCount: 3
     },
+    'IntLine': {
+        argCount: 3
+    },
     'Lim': {
         argCount: 3
     },
@@ -45,6 +50,9 @@ const FunctionTable: IFunctionTable = {
     },
     'Sum': {
         argCount: 3
+    },
+    'Vec': {
+        argCount: 1
     }
 }
 
