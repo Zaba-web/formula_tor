@@ -9,10 +9,13 @@ interface IFunctionTable {
     'System3': FunctionDescription,
     'System4': FunctionDescription,
     'IndefInt': FunctionDescription,
-    'DefInt': FunctionDescription
+    'DefInt': FunctionDescription,
+    'Lim': FunctionDescription,
+    'Indexes': FunctionDescription,
+    'Sum': FunctionDescription
 }
 
-const FunctionTable = {
+const FunctionTable: IFunctionTable = {
     'Root': {
         argCount: 2
     },
@@ -32,6 +35,15 @@ const FunctionTable = {
         argCount: 1
     },
     'DefInt': {
+        argCount: 3
+    },
+    'Lim': {
+        argCount: 3
+    },
+    'Indexes': {
+        argCount: 2
+    },
+    'Sum': {
         argCount: 3
     }
 }
