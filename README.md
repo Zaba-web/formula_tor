@@ -103,7 +103,7 @@ Example 1: `3, Root(4, 2)`
 | Function                         | Description                         | Count of agrumetns  | Usage example            |
 | -------------------------------- | ----------------------------------- | ------------------- | ------------------------ |
 | `Root(expr, nth_root)`           | Root construction visualization     | 2                   | Root(27, 3)              |
-| `Log(expr, base)`                | Log function                        | 2                   | Root(27, 3)              |
+| `Log(expr, base)`                | Log function                        | 2                   | Log(x, 2) = 4             |
 | `System2(expr1, expr2)`          | System of 2 equations/inequalities  | 2                   | System2((2+xy = 2), (y - x = 4)) |
 | `System3(expr1, expr2, expr3)`   | System of 3 equations/inequalities  | 3                   | System3((2+xy = 2), (y - x = 4), (y - x = 4)) |
 | `System4(expr1, expr2, expr3, expr4)`   | System of 4 equations/inequalities  | 4  | System4((2+xy = 2), (y - x = 4), (y - x = 4), (y - x = 4))|
