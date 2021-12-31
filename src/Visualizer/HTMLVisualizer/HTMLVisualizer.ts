@@ -198,6 +198,9 @@ export class HTMLVisualizer implements IVisualizer {
                 case 'DEG':
                     result += NodesMarkupGenerator.topIndexNodeMarkup(NodesMarkupGenerator.regularStringNodeMarkup('°'));
                     break;
+                case 'INFINITY':
+                    result += NodesMarkupGenerator.regularStringNodeMarkup('∞');
+                    break;
                 default:
                     result += NodesMarkupGenerator.regularStringNodeMarkup(node.value);
                     break;
