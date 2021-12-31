@@ -7,11 +7,14 @@ formula_tor is a small JS library that visualizes mathematical expressions into 
 If your project uses NPM:
 
 `npm i @zaba-web/formula_tor`
+
+and then in your project file:
+
 `import Formulator from 'zaba-web/formula_tor'`
 
 Otherwise, you can use CDN:
 
-`<script src='https://cdn.jsdelivr.net/npm/@zaba-web/formula_tor/dist/formulator.js'></div>`
+`<script src='https://cdn.jsdelivr.net/npm/@zaba-web/formula_tor/dist/formulator.js'></script>`
 
 ## Usage
 ### Getting started
@@ -21,7 +24,7 @@ First of all, we need to create an html element that we will use as a container 
 Then we need to create instance of Formulator class. Formulator's constructor requires container (HTML element) as the argument.
 
 ```
-const containerElement = document.querySelector('formula-container')
+const containerElement = document.querySelector('.formula-container')
 const formulator = new Formulator(containerElement)
 ```
 
