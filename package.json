@@ -1,10 +1,11 @@
 {
-  "name": "formulator",
-  "version": "0.9.9",
+  "name": "@zaba-web/formula_tor",
+  "version": "1.0.0",
   "description": "Simple library that renders mathematical expressions as visualized formulas.",
   "main": "dist/formulator.js",
   "module": "dist/formulator.js",
   "types": "dist/index.d.ts",
+  "files": ["dist/*.js", "dist/*.d.ts", "dist/**/&.js"],
   "prepublish":"npm run prod && npm run test",
   "scripts": {
     "dev": "webpack --mode development --watch",
