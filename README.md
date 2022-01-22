@@ -22,7 +22,7 @@ Otherwise, you can use CDN:
 
 Then, if you want to save visualized markup somewhere and use it later, you need to add file with styles on that page:
 ```
-import '@zaba-web/formula_tor/style.css'
+import '@zaba-web/formula_tor/dist/style.css'
 ```
 
 Or with CDN:
