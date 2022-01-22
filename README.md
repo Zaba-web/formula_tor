@@ -10,16 +10,34 @@ If your project uses NPM:
 
 and then in your project file:
 
-`import Formulator from 'zaba-web/formula_tor'`
+```
+import Formulator from '@zaba-web/formula_tor'
+```
 
 Otherwise, you can use CDN:
 
-`<script src='https://cdn.jsdelivr.net/npm/@zaba-web/formula_tor/dist/formulator.js'></script>`
+```
+<script src='https://cdn.jsdelivr.net/npm/@zaba-web/formula_tor/dist/formulator.js'></script>
+```
+
+Then, if you want to save visualized markup somewhere and use it later, you need to add file with styles on that page:
+```
+import '@zaba-web/formula_tor/style.css'
+```
+
+Or with CDN:
+
+```
+<link refl='stylesheet' href='https://cdn.jsdelivr.net/npm/@zaba-web/formula_tor/dist/style.css'>
+```
 
 ## Usage
 ### Getting started
-First of all, we need to create an html element that we will use as a container for formula.
-`<div class='formula-container'></div>`
+First of all, we need to create an HTML element that we will use as a container for formula.
+
+```
+<div class='formula-container'></div>
+```
 
 Then we need to create instance of Formulator class. Formulator's constructor requires container (HTML element) as the argument.
 
@@ -40,7 +58,7 @@ There are several types of parts from which we build expression:
 
 * Regular Strings
 
-Regular string is a character or sequence of characters that are not operators or functions (see Operators list and Functions list).
+Regular string is a character or sequence of characters that are not operators or functions (see Operators table and Functions table).
 
 Example: `10x + 4 - 8 = 15`
 
@@ -49,9 +67,9 @@ Example: `10x + 4 - 8 = 15`
 
 * Operators
 
-Operators are reserved characters (see Operators list) that works with operands. There are **unary** operators that works with one operand and **binary** that work with two respectively.
+Operators are reserved characters (see Operators table) that works with operands. There are **unary** operators that work with single operand and **binary** that work with two respectively.
 
-As an operand you can use arbitary expression. If this expression consists more than from one regular string or it is another operator or function, it should be wrapped in brackets.
+As an operand you can use arbitary expression. If this expression consists more than from one regular string or it is another operator or function, it should be wrapped in parentheses.
 
 Exampe 1: `1/5` - binary operator */* with two operands: *1* and *2*. Both of them are regular string
 
@@ -62,9 +80,9 @@ Example 3: `1/(2/5)` - in this example we use another binary operator as an oper
 
 * Functions
 
-Functions are reserved words that works with arguments (see Functions list). Name of function begins with capital letter. Arguments should be written in brackets, separated by coma (**,**) character.
+Functions are reserved words that work with arguments (see Functions table). Name of function begins with capital letter. Arguments should be written in parentheses, separated by coma (**,**) character.
 
-To the function's arguments applies the same rules as for operands. If you intend to use function as an operand or argument of another function you should wrap it in brackets.
+To the function's arguments applied the same rules as for operands. If you intend to use function as an operand or argument of another function you should wrap it in parentheses.
 
 Example 1: `Root(x, 3)`
 
@@ -77,12 +95,12 @@ Example 4: `Root((Root(2,3)),2)`
 
 * Constants
 
-There are several most common used math symbols are factored as constants (see Constants list). Constants names should be written in capital letters.
+There are several most common used math symbols that are factored as constants (see Constants table). Constant name should be written in capital letters.
 
 
 * Separation
 
-Commonly, parts of the formula separates automatically. But if you are using two parts of formula without explicit seprator (Operators and `+, -, =, *, <, >, (, ) and |` characters) you should separate it by hand using coma separator.
+Commonly, parts of the formula separates automatically. But if you are using two parts of formula without explicit seprator (Operators and `+, -, =, *, <, >, (, ), |` characters) you should separate it by hand using coma separator.
 
 Example 1: `DELTA, x`
 
@@ -101,7 +119,7 @@ Example 1: `3, Root(4, 2)`
 ### Functions table
 
 | Function                         | Description                         | Count of agrumetns  | Usage example            |
-| -------------------------------- | ----------------------------------- | ------------------- | ------------------------ |
+| -------------------------------- | ----------------------------------- | ------------------- | ------------------------------- |
 | `Root(expr, nth_root)`           | Root construction visualization     | 2                   | Root(27, 3)              |
 | `Log(expr, base)`                | Log function                        | 2                   | Log(x, 2) = 4             |
 | `System2(expr1, expr2)`          | System of 2 equations/inequalities  | 2                   | System2((2+xy = 2), (y - x = 4)) |

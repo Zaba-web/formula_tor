@@ -1,11 +1,13 @@
 {
   "name": "@zaba-web/formula_tor",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "Simple library that renders mathematical expressions as visualized formulas.",
+  "homepage": "https://github.com/Zaba-web/formula_tor",
+  "keywords": ["formula", "math formulas", "visualization", "math expression visualizer", "math expression"],
   "main": "dist/formulator.js",
   "module": "dist/formulator.js",
   "types": "dist/index.d.ts",
-  "files": ["dist/*.js", "dist/*.d.ts", "dist/**/&.js"],
+  "files": ["dist/*.js", "dist/*.d.ts", "dist/**/&.js", "dist/*.css"],
   "prepublish":"npm run prod && npm run test",
   "scripts": {
     "dev": "webpack --mode development --watch",
